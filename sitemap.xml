@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://yoursite.com/2019/02/27/Reloading/</loc>
+    
+    <lastmod>2019-02-27T12:08:00.721Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/files/channel_v3.json</loc>
+    
+    <lastmod>2019-02-27T11:48:10.578Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/index.html</loc>
+    
+    <lastmod>2019-02-27T09:09:44.063Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/02/27/hello-world/</loc>
+    
+    <lastmod>2019-02-27T07:45:19.038Z</lastmod>
+    
+  </url>
+  
+</urlset>
