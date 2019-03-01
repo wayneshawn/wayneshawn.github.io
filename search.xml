@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[Zsh, oh-my-zsh 安装配置]]></title>
+    <url>%2F2019%2F03%2F01%2Fzsh-install%2F</url>
+    <content type="text"><![CDATA[1. ZshZsh，即Z shell。$cat /etc/shells可以查看所有的shells，如bash，tcsh，zsh等。如果已经有了zsh，则命令$chsh -s /bin/zsh即可切换到zsh shell。命令$echo $SHELL查看，则结果为/usr/bin/zsh或者/bin/zsh。关于二者的关系，以下命令可以说明。12$ls -ls /usr/bin/zsh... /usr/bin/zsh -&gt; /bin/zsh zsh 与 .bash_profile .bashrc已知.bashrc是每当bash “started interactively”时都会运行；.bash_profile仅仅“at the start of a new login shell”时执行。那么，使用zsh时.bashrc和.bash_profile就不会生效。实际上，zsh相关的文件如下$ZDOTDIR/.zshenv 类似.bash_profile$ZDOTDIR/.zprofile 类似.bash_profile$ZDOTDIR/.zshrc 类似.bashrc$ZDOTDIR/.zlogin$ZDOTDIR/.zlogout Installing ZSH 2. oh-my-zsh及插件配置 一般推荐的安装方式为sh -c &quot;$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)&quot;或者sh -c &quot;$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)&quot;给非root用户安装，或者需要指定安装位置，可以手动安装。 手动安装 git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh 如果.zshrc中已经有了相关配置，可以将其备份 cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc 安装 zsh-syntax-highlightingzsh-syntax-highlighting的作用是shell命令高亮。Mac OS X等系统安装brew install zsh-syntax-highlighting或其他对应的命令将source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh添加到~/.zshrc的最后。 手动安装则可以直接下载git repo。 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting 在.zshrc的plugins选项中添加plugins=( [plugins…] zsh-syntax-highlighting) 重启zsh或者 source ~/.zshrc Install oh-my-zshzsh-syntax-highlighting]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Reloading]]></title>
+    <url>%2F2019%2F02%2F27%2FReloading%2F</url>
+    <content type="text"><![CDATA[Reloading由于之前的（2015，真的是很久很久之前，之后便断掉了）post在旧电脑上直接保存，这次更新直接把原来的内容给覆盖了。 继续使用next主题，但是配置还要从头再来。做好记录，切实可以回看的记录，果然还是非常重要的。 Hexo使用使用资源文件在hexo的sources中建立相应的文件夹，如images/, files/等，在链接时使用[]()就可以了,图片则为![]()如，channel_v3.jsonzhonghan wu等人关于图计算的综述论文一篇Markdown在线教程(英文)]]></content>
+      <tags>
+        <tag>general</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2019%2F02%2F27%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+</search>
