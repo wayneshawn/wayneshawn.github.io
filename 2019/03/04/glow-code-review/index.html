@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-wayne.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-wayne.ico?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false,"dimmer":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="日志C++ in Glow该部分主要是，结合Glow中的代码示例说明C++一些方法技巧，增强记忆。 虚函数父类使用虚函数。1234// Backend.hvirtual bool transformPostLowering(Function *F, CompilationMode mode) const &amp;#123;return false;&amp;#125; 子类则对方法重载。声明时使用overrid">
+<meta name="keywords" content="C++,轮子,Glow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Glow源码阅读">
+<meta property="og:url" content="http://yoursite.com/2019/03/04/glow-code-review/index.html">
+<meta property="og:site_name" content="Wayne&#39;s Blog">
+<meta property="og:description" content="日志C++ in Glow该部分主要是，结合Glow中的代码示例说明C++一些方法技巧，增强记忆。 虚函数父类使用虚函数。1234// Backend.hvirtual bool transformPostLowering(Function *F, CompilationMode mode) const &amp;#123;return false;&amp;#125; 子类则对方法重载。声明时使用overrid">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/images/lambdaexpsyntax.png">
+<meta property="og:updated_time" content="2019-05-20T04:38:01.282Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Glow源码阅读">
+<meta name="twitter:description" content="日志C++ in Glow该部分主要是，结合Glow中的代码示例说明C++一些方法技巧，增强记忆。 虚函数父类使用虚函数。1234// Backend.hvirtual bool transformPostLowering(Function *F, CompilationMode mode) const &amp;#123;return false;&amp;#125; 子类则对方法重载。声明时使用overrid">
+<meta name="twitter:image" content="http://yoursite.com/images/lambdaexpsyntax.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/04/glow-code-review/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Glow源码阅读 | Wayne's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wayne's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-sitemap">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>Sitemap</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/04/glow-code-review/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wayne">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/favicon-wayne.ico">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wayne's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Glow源码阅读
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-04 10:00:00" itemprop="dateCreated datePublished" datetime="2019-03-04T10:00:00+08:00">2019-03-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-05-20 12:38:01" itemprop="dateModified" datetime="2019-05-20T12:38:01+08:00">2019-05-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><h2 id="C-in-Glow"><a href="#C-in-Glow" class="headerlink" title="C++ in Glow"></a>C++ in Glow</h2><p>该部分主要是，结合Glow中的代码示例说明C++一些方法技巧，增强记忆。</p>
+<h3 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h3><p>父类使用虚函数。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Backend.h</span></span><br><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">transformPostLowering</span><span class="params">(Function *F, CompilationMode mode)</span> <span class="keyword">const</span> </span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>子类则对方法重载。声明时使用<code>override</code>指示该方法进行了重载。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CPUBackend</span> :</span> <span class="keyword">public</span> Backend &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">transformPostLowering</span><span class="params">(Function *F, CompilationMode mode)</span> <span class="keyword">const</span> override</span>;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">bool</span> CPUBackend::transformPostLowering(Function *F, CompilationMode mode) <span class="keyword">const</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以下来自<a href="https://www.cnblogs.com/xinxue/p/5471708.html" target="_blank" rel="noopener">一篇写得很清晰的文章</a><br>1)  公有继承<br>纯虚函数      =&gt; 继承的是：接口 (interface)<br>普通虚函数    =&gt; 继承的是：接口 + 缺省实现 (default implementation)<br>非虚成员函数  =&gt; 继承的是：接口 + 强制实现 (mandatory implementation)</p>
+<p>对于声明为非虚成员函数，继承时最好不要重写；<br>对于普通虚函数，要重写时需要满足苛刻的条件（返回类型，常量属性，引用限定符等）。使用<code>override</code>关键字，可以强制编译器检查该函数是否正确重写。<br>其中，这三种函数在父类中声明示例如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Shape</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Draw</span><span class="params">()</span> <span class="keyword">const</span> </span>= <span class="number">0</span>;    <span class="comment">// 1) 纯虚函数</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Error</span><span class="params">(<span class="keyword">const</span> <span class="built_in">string</span>&amp; msg)</span></span>;  <span class="comment">// 2) 普通虚函数</span></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">ObjectID</span><span class="params">()</span> <span class="keyword">const</span></span>;  <span class="comment">// 3) 非虚函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="std-unique-ptr-std-move等"><a href="#std-unique-ptr-std-move等" class="headerlink" title="std::unique_ptr, std::move等"></a>std::unique_ptr, std::move等</h3><p>先上代码。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OpenCLFunction</span> <span class="title">final</span> :</span> <span class="keyword">public</span> CompiledFunction &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;IRFunction&gt; F_;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">/// Ctor.</span></span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">OpenCLFunction</span><span class="params">(<span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;IRFunction&gt; F)</span></span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">OpenCLFunction::OpenCLFunction(<span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;IRFunction&gt; F)</span><br><span class="line">    : F_(<span class="built_in">std</span>::move(F)) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;CompiledFunction&gt;</span><br><span class="line">OCLBackend::compile(<span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;IRFunction&gt; IR) <span class="keyword">const</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> llvm::make_unique&lt;OpenCLFunction&gt;(<span class="built_in">std</span>::move(IR));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>unique_ptr 独占所指向的对象, 同一时刻只能有一个 unique_ptr 指向给定对象(通过禁止拷贝语义, 只有移动语义来实现), 定义于 memory (非memory.h)中, 命名空间为 std。</p>
+</blockquote>
+<p>这是一篇很全面的文章。<a href="https://www.cnblogs.com/DswCnblog/p/5628195.html" target="_blank" rel="noopener">C++ 11 创建和使用 unique_ptr</a><br>要点是：</p>
+<ol>
+<li><p>unique_ptr的构造主要有以下方式。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">unique_ptr</span> p = <span class="built_in">std</span>::make&lt;ClassName&gt;();</span><br><span class="line"><span class="built_in">std</span>::<span class="function"><span class="built_in">unique_ptr</span> <span class="title">p</span><span class="params">(<span class="keyword">new</span> ClassName())</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>unique_ptr可以实现 返回函数内分配的动态资源</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">unique_ptr</span>&lt;<span class="keyword">int</span>&gt; Func(<span class="keyword">int</span> p)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">unique_ptr</span>&lt;<span class="keyword">int</span>&gt; pInt(<span class="keyword">new</span> <span class="keyword">int</span>(p)); <span class="comment">//构造方式</span></span><br><span class="line">    <span class="keyword">return</span> pInt;    <span class="comment">// 返回unique_ptr</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> p = <span class="number">5</span>;</span><br><span class="line">    <span class="built_in">unique_ptr</span>&lt;<span class="keyword">int</span>&gt; ret = Func(p);</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; *ret &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// 函数结束后，自动释放资源</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自动释放资源。避免 <code>new delete</code>方式因抛出异常等原因，无法正常释放。</p>
+</li>
+<li>可以使用移动构造和移动赋值，而不能使用复制构造和赋值。’unique_ptr<t> p2(std::move(p1)’或者<code>unique_ptr&lt;T&gt; p2 = std::move(p1);</code></t></li>
+</ol>
+<p><strong>std::move</strong><br>C++14<br>template&lt; class T &gt;<br>constexpr typename std::remove_reference<t>::type&amp;&amp; move( T&amp;&amp; t ) noexcept;<br>std::move的参数和返回值都是右值引用。在Glow中有例子如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> Context::insert(Placeholder *P, Tensor &amp;&amp;T) &#123;</span><br><span class="line">  assert(!map_.count(P) &amp;&amp; <span class="string">"Placeholder already registered"</span>);</span><br><span class="line">  <span class="comment">// Take ownership over the tensor.</span></span><br><span class="line">  map_[P] = <span class="keyword">new</span> Tensor(<span class="built_in">std</span>::move(T));</span><br><span class="line">  nameMap_[P-&gt;getName()] = P;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// somewhere</span></span><br><span class="line">Tensor ptrT = orig-&gt;getUnowned(orig-&gt;dims());</span><br><span class="line">insert(placeholders[i], <span class="built_in">std</span>::move(ptrT));</span><br></pre></td></tr></table></figure></t></p>
+<h3 id="lambda-function"><a href="#lambda-function" class="headerlink" title="lambda function"></a>lambda function</h3><p>回调函数<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Callback type used by HostManager and DeviceManager, used to pass results of an inference request back to the caller.</span></span><br><span class="line"><span class="keyword">using</span> ResultCBTy = <span class="built_in">std</span>::function&lt;<span class="keyword">void</span>(</span><br><span class="line">    runtime::RunIdentifierTy, runtime::ResultCode, <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;Context&gt;)&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> CPUDeviceManager::runFunctionImpl(RunIdentifierTy id, <span class="built_in">std</span>::<span class="built_in">string</span> function, <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;Context&gt; ctx, ResultCBTy resultCB) &#123;</span><br><span class="line">    ...</span><br><span class="line">    resultCB(id, ResultCode::Executed, <span class="built_in">std</span>::move(ctx));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>调用<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Starts a run of resnet50 on the given image. The image must be already</span></span><br><span class="line"><span class="comment">/// loaded into the input placeholder in /p ctx.</span></span><br><span class="line"><span class="comment">/// If, at the end of the run the number of \p returned results is equal to</span></span><br><span class="line"><span class="comment">/// maxImages, the \p finished promise is set.</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dispatchClassify</span><span class="params">(<span class="keyword">unsigned</span> <span class="keyword">int</span> id, DeviceManager *device, <span class="built_in">std</span>::<span class="built_in">string</span> path,</span></span></span><br><span class="line"><span class="function"><span class="params">                      Placeholder *output, <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;Context&gt; ctx,</span></span></span><br><span class="line"><span class="function"><span class="params">                      <span class="built_in">std</span>::atomic&lt;<span class="keyword">size_t</span>&gt; &amp;returned,</span></span></span><br><span class="line"><span class="function"><span class="params">                      <span class="built_in">std</span>::promise&lt;<span class="keyword">void</span>&gt; &amp;finished)</span> </span>&#123;</span><br><span class="line">  device-&gt;runFunction(</span><br><span class="line">      <span class="string">"resnet50"</span>, <span class="built_in">std</span>::move(ctx),</span><br><span class="line">      [id, path, output, &amp;returned, &amp;finished](RunIdentifierTy, ResultCode r,</span><br><span class="line">                                               <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;Context&gt; ctx) &#123;</span><br><span class="line">        <span class="keyword">size_t</span> maxIdx = ctx-&gt;get(output)-&gt;getHandle&lt;&gt;().minMaxArg().second;</span><br><span class="line"></span><br><span class="line">        llvm::outs() &lt;&lt; <span class="string">"("</span> &lt;&lt; id &lt;&lt; <span class="string">") "</span> &lt;&lt; path &lt;&lt; <span class="string">": "</span> &lt;&lt; maxIdx &lt;&lt; <span class="string">"\n"</span>;</span><br><span class="line">        <span class="keyword">if</span> (++returned == maxImages) &#123;</span><br><span class="line">          finished.set_value();</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://docs.microsoft.com/en-us/cpp/cpp/lambda-expressions-in-cpp?view=vs-2017" target="_blank" rel="noopener">lambda expressions in C++</a><br><img src="/images/lambdaexpsyntax.png" alt></p>
+<ol>
+<li>capture clause (Also known as the lambda-introducer in the C++ specification.)<br>在上面的代码示例中，lambda函数体中除了参数，还使用了id，path等来自surrounding scope的变量，即相对于lambda函数的外部变量。<br>capture的参数分为[&amp;](captured-by-reference)和[=](captured-by-value)。<br>by-value是默认方式。假定外部变量total以引用的方式，factor则以值方式，以下方式等价。<br>[&amp;total, factor]<br>[&amp;, factor]<br>[=, &amp;total]<br>…省略了交换顺序的情况</li>
+<li><p>parameter list Optional. (Also known as the lambda declarator)</p>
+</li>
+<li><p>mutable specification Optional.</p>
+</li>
+<li><p>exception-specification Optional.</p>
+</li>
+<li><p>trailing-return-type Optional.</p>
+</li>
+<li><p>lambda body.<br>另外一个例子。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// captures_lambda_expression.cpp</span></span><br><span class="line"><span class="comment">// compile with: /W4 /EHsc</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> m = <span class="number">0</span>;</span><br><span class="line">   <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">   [&amp;, n] (<span class="keyword">int</span> a) <span class="keyword">mutable</span> &#123; m = ++n + a; &#125;(<span class="number">4</span>);</span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; m &lt;&lt; <span class="built_in">endl</span> &lt;&lt; n &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 5</span></span><br><span class="line"><span class="comment">* 0</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Glow-工程架构"><a href="#Glow-工程架构" class="headerlink" title="Glow 工程架构"></a>Glow 工程架构</h2><h3 id="ExecutionEngine编译流程"><a href="#ExecutionEngine编译流程" class="headerlink" title="ExecutionEngine编译流程"></a>ExecutionEngine编译流程</h3><p><strong>v1</strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> ExecutionEngine::compile(CompilationMode mode, Function *F) &#123;</span><br><span class="line">  function_ = backend_-&gt;compile(generateIR(mode, F));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>generateIR()做了大量的工作。</p>
+<ul>
+<li>图(class Function)优化</li>
+<li>图Lowering (backend 相关的)</li>
+<li>pre/post-Lowering的图处理</li>
+<li>IR(IRFunction)生成</li>
+<li>IR 优化</li>
+</ul>
+<p><code>function_</code>的类型是<code>class CompiledFunction</code>，其实是一个接口类。</p>
+<ul>
+<li>EE生成IR，并让backend_对IR进一步编译处理；</li>
+<li>EE在运行图时，调用的是<code>function_-&gt;execute()</code>，该函数是<code>class CompiledFunction</code>的纯虚函数；</li>
+<li>CPU后端的相关的CPUFunction，OpenCL相关的OpenCLFunction等，都是继承自CompliedFunction。<br>在代码形式上，函数返回类型为Base *， 实际返回则是Derived *。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OCLBackend</span> <span class="title">final</span> :</span> <span class="keyword">public</span> Backend &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ...</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;CompiledFunction&gt;</span><br><span class="line">    compile(<span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;IRFunction&gt; IR) <span class="keyword">const</span> override;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;CompiledFunction&gt;</span><br><span class="line">OCLBackend::compile(<span class="built_in">std</span>::<span class="built_in">unique_ptr</span>&lt;IRFunction&gt; IR) <span class="keyword">const</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> llvm::make_unique&lt;OpenCLFunction&gt;(<span class="built_in">std</span>::move(IR));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>v2</strong></p>
+<h3 id="PostOrderVisitor"><a href="#PostOrderVisitor" class="headerlink" title="PostOrderVisitor"></a>PostOrderVisitor</h3><p>Glow的图遍历采用了visitor模式。<br>ClassName##Node内部均定义了visit()方法；<br>Visitor选择实现pre/post方法来选择先序后序遍历。</p>
+<p>Node的visit方法如下,做了简略：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">XXvisit</span><span class="params">(Node *parent, NodeWalker *visitor)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    visitor-&gt;pre(parent, <span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;op : nodeInputs_) &#123;</span><br><span class="line">        op.getNode()-&gt;visit(<span class="keyword">this</span>, visitor);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;op : members_) &#123;</span><br><span class="line">        <span class="keyword">if</span> (op.first == MemberType::VectorNodeValue) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> &amp;I :  &lt;&lt; op.second)</span><br><span class="line">            &#123;</span><br><span class="line">                I.getNode()-&gt;visit(<span class="keyword">this</span>, visitor);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    visitor-&gt;post(parent, <span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>由于<strong>搞反了父子节点规定和root节点</strong>，笔者一直以为post order得到的顺序是，正常计算顺序的反序。<br>例如，<a href="/images/mnist.png">mnist网络计算图(图太大，放链接)</a><br>计算的顺序是<br>conv-pool2-relu311-conv1-…-fc_1X-fc_dot-fc_add_bias-sm-return<br>这个计算图实际上是layer堆叠的，因此结构并不复杂。<br>按照构造顺序，我们容易觉得conv是pool2的父节点；然而，按照一般的计算图的定义方式。最后的return节点才是父节点，即从底向上的计算。因此，PostOrder的遍历，其实恰是正常计算的顺序。</p>
+<p>下面具体介绍一下Glow中的ChildMemSizeBasedScheduler。<br>按照上面的定义，节点的输入是其计算图中的子节点。以Add节点为例，C = A + B。<br>是先算ANode还是BNode呢，衡量指标是<code>Metric[child] = maxMemSize_[child] - resultMemSize_[child]</code>，较大者优先。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pesudo code</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">orderChildNodesAndSchedule</span><span class="params">(Node *N)</span></span>&#123;</span><br><span class="line">    <span class="number">1.</span> <span class="function"><span class="keyword">if</span> N is Scheduled <span class="keyword">or</span> N is <span class="title">Variable</span><span class="params">(weight input <span class="keyword">for</span> op node, <span class="keyword">not</span> activation)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">return</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="number">2.</span> <span class="keyword">for</span> input of N</span><br><span class="line">        children.push_back(input)</span><br><span class="line"></span><br><span class="line">    <span class="number">3.</span> order children by Metric desn</span><br><span class="line"></span><br><span class="line">    <span class="number">4.</span> <span class="keyword">for</span> child in children</span><br><span class="line">        orderChildNodesAndSchedule(child)</span><br><span class="line"></span><br><span class="line">    <span class="number">5.</span> scheduled_.push_back(N)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中节点N的MaxMemSize应该这样规定：<br><code>max(sum(resultMemSize of children), max(maxMemSize of children))</code><br>具体的数据结构和算法如下<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Required number of bytes to hold the results of a given node.</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">unordered_map</span>&lt;<span class="keyword">const</span> Node *, <span class="keyword">int64_t</span>&gt; resultMemSize_;</span><br><span class="line"><span class="comment">/// Max number of bytes required during the computation of a given node.</span></span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">unordered_map</span>&lt;<span class="keyword">const</span> Node *, <span class="keyword">int64_t</span>&gt; maxMemSize_;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> ChildMemSizeBasedScheduler::computeNodeComputationMaxMemorySize() &#123;</span><br><span class="line">  <span class="comment">// Traverse nodes in such a way, that dependnecies are processed</span></span><br><span class="line">  <span class="comment">// before the node using them.</span></span><br><span class="line">  <span class="function">GraphPostOrderVisitor <span class="title">visitor</span><span class="params">(G_)</span></span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">auto</span> *N : visitor.getPostOrder()) &#123;</span><br><span class="line">    <span class="keyword">int64_t</span> maxSize = (N-&gt;getNumInputs() &gt; <span class="number">0</span>)</span><br><span class="line">                          ? <span class="built_in">std</span>::max(resultMemSize_[N-&gt;getNthInput(<span class="number">0</span>)],</span><br><span class="line">                                     maxMemSize_[N-&gt;getNthInput(<span class="number">0</span>)])</span><br><span class="line">                          : <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">size_t</span> idx = <span class="number">1</span>, e = N-&gt;getNumInputs(); idx &lt; e; ++idx) &#123;</span><br><span class="line">      <span class="keyword">const</span> <span class="keyword">auto</span> &amp;input = N-&gt;getNthInput(idx);</span><br><span class="line">      <span class="comment">// Skip operands that do not require memory allocations for storing</span></span><br><span class="line">      <span class="comment">// their results.</span></span><br><span class="line">      <span class="keyword">if</span> (isa&lt;Storage&gt;(input))</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      assert(resultMemSize_.count(input) &gt; <span class="number">0</span>);</span><br><span class="line">      assert(maxMemSize_.count(input) &gt; <span class="number">0</span>);</span><br><span class="line">      maxSize += resultMemSize_[input];</span><br><span class="line">      <span class="keyword">if</span> (maxSize &lt; maxMemSize_[input])</span><br><span class="line">        maxSize = maxMemSize_[input];</span><br><span class="line">    &#125;</span><br><span class="line">    maxMemSize_[N] = maxSize;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="DeviceManager设计"><a href="#DeviceManager设计" class="headerlink" title="DeviceManager设计"></a>DeviceManager设计</h3><p>当我们考虑分布式执行时，需要将Devices管理起来，需要统一的接口，并考虑和计算图之间的交互问题，包括执行和代码生成等角度。</p>
+<h3 id="Variable拆分为Constants和Placeholder"><a href="#Variable拆分为Constants和Placeholder" class="headerlink" title="Variable拆分为Constants和Placeholder"></a>Variable拆分为Constants和Placeholder</h3><p><strong>较早版本的glow</strong><br>用Variable表示作为Weight的容器，如input，Conv的filter和bias等。这些Weights又可以分为两类，在会变动的MutableWeights（输入，训练），和ConstantWeights（如Zero-Tensor和推理时的Weights）。Glow的实现是在IRGen时将所有Variable对应的WeightVar设置为Mutable，在IROptimizer运行时，将无需写的WeightVar属性设置为Constans。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// IRGen</span></span><br><span class="line"><span class="keyword">case</span> glow::Kinded::Kind::VariableKind: &#123;</span><br><span class="line">    <span class="keyword">auto</span> *V = cast&lt;Variable&gt;(N);</span><br><span class="line">    <span class="keyword">auto</span> *W = builder_.createWeightVar(V-&gt;getType(), V-&gt;getName(),</span><br><span class="line">                                       WeightVar::MutabilityKind::Mutable,</span><br><span class="line">                                       V-&gt;getVisibilityKind());</span><br><span class="line">    W-&gt;setName(N-&gt;getName());</span><br><span class="line">    registerIR(N, W);</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// IROptimizer</span></span><br><span class="line"><span class="comment">// For each instruction that uses the weight:</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;U : ValueUses(W)) &#123;</span><br><span class="line">  <span class="keyword">auto</span> kind = U.getOperand().second;</span><br><span class="line">  <span class="comment">// Check if all of the users are read-only.</span></span><br><span class="line">  <span class="keyword">if</span> (kind != OperandKind::In) &#123;</span><br><span class="line">    readOnly = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Mark the variable as read only.</span></span><br><span class="line"><span class="keyword">if</span> (readOnly)</span><br><span class="line">  W-&gt;setMutability(WeightVar::MutabilityKind::Constant);</span><br></pre></td></tr></table></figure></p>
+<p>备注：Varialb的Visibility属性，设置为Public(意味着可能hold a reference)时不可对其进行优化，且对应的WeightVar必须是Mutable的。</p>
+<p>Variable的成员变量如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Variable</span> :</span> <span class="keyword">public</span> Node &#123;</span><br><span class="line">  <span class="comment">/// Specifies if the variable is trainable.</span></span><br><span class="line">  <span class="keyword">bool</span> isTrainable_;</span><br><span class="line">  <span class="comment">/// Specifies the visibility of the variable.</span></span><br><span class="line">  VisibilityKind visibility_;</span><br><span class="line">  <span class="comment">/// The tensor payload that the variable holds.</span></span><br><span class="line">  Tensor payload_;</span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function">Tensor &amp;<span class="title">getPayload</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> payload_; &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Placeholder和Constant</strong><br>对比两个类的定义:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Storage</span> :</span> <span class="keyword">public</span> Node &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  ... <span class="comment">// some functions</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Constant</span> :</span> <span class="keyword">public</span> Storage&#123;</span><br><span class="line">  <span class="comment">/// The tensor payload that the constant holds.</span></span><br><span class="line">  Tensor payload_;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// Placeholder nodes are unbound-storage. The content tensors are attached to</span></span><br><span class="line"><span class="comment">/// this node at runtime. Placeholders are used as inputs and output nodes to</span></span><br><span class="line"><span class="comment">/// the network.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Placeholder</span> :</span> <span class="keyword">public</span> Storage &#123;</span><br><span class="line">  <span class="comment">/// Specifies if the placeholder is trainable.</span></span><br><span class="line">  <span class="keyword">bool</span> isTrainable_;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="comment">/// Create a new placeholder.</span></span><br><span class="line">  Placeholder(llvm::StringRef name, TypeRef Ty, <span class="keyword">bool</span> isTrainable)</span><br><span class="line">      : Storage(Kinded::Kind::PlaceholderKind, name),</span><br><span class="line">        isTrainable_(isTrainable) &#123;</span><br><span class="line">    addResult(Ty);</span><br><span class="line">  &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>在应用方面，以lenet mnist网络为例，构造网络时input是Placeholder，Conv的filte和bias同样声明为Placeholder。(注意Placeholder构造函数中的<strong><code>addResult(Ty)</code></strong>)<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mnist.cpp</span></span><br><span class="line">Placeholder *A = mod.createPlaceholder(</span><br><span class="line">      ElemKind::FloatTy, &#123;minibatchSize, <span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>&#125;, <span class="string">"input"</span>, <span class="literal">false</span>);</span><br><span class="line">...</span><br><span class="line">Tensor *inputTensor = ctx.allocate(A);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Context.cpp</span></span><br><span class="line">Tensor *Context::allocate(Placeholder *P) &#123;</span><br><span class="line">  assert(!map_.count(P) &amp;&amp; <span class="string">"Placeholder already registered"</span>);</span><br><span class="line">  Tensor *T = <span class="keyword">new</span> Tensor(P-&gt;getType());</span><br><span class="line">  map_[P] = T;</span><br><span class="line">  nameMap_[P-&gt;getName()] = P;</span><br><span class="line">  <span class="keyword">return</span> T;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h3><p>Context用来维护神经网络的什么信息呢？</p>
+<ul>
+<li>mapping between <em>some</em> graph nodes and concrete tensors</li>
+<li>traceEvents</li>
+<li><em>owns the tensors</em> 1)tensors是在成员函数allocate()中分配的；2)<code>insert(Placeholder *P, Tensor &amp;&amp;T)</code>使用了右值引用和<code>std::move()</code>。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// This class provides a mapping between some graph nodes, which are a symbolic</span></span><br><span class="line"><span class="comment">/// representation of some computation, and concrete tensors that represent the</span></span><br><span class="line"><span class="comment">/// inputs and outputs to the graph. The context owns the tensors and the graph</span></span><br><span class="line"><span class="comment">/// uses these values as runtime. This is useful for the multi-threaded</span></span><br><span class="line"><span class="comment">/// execution of code, where each thread has a different execution context. The</span></span><br><span class="line"><span class="comment">/// difference between this class and a regular map is that the Context owns the</span></span><br><span class="line"><span class="comment">/// Tensors (not only the pointers) and manages their lifetime.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Context</span> <span class="title">final</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="comment">/// Maps placeholders to the tensors that back them.</span></span><br><span class="line">  <span class="keyword">using</span> PlaceholderMap = <span class="built_in">std</span>::<span class="built_in">unordered_map</span>&lt;Placeholder *, Tensor *&gt;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/// Maps Placeholder names to Placeholders.</span></span><br><span class="line">  <span class="keyword">using</span> PlaceholderNameMap = <span class="built_in">std</span>::<span class="built_in">unordered_map</span>&lt;<span class="built_in">std</span>::<span class="built_in">string</span>, Placeholder *&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">  <span class="comment">/// Maps Placeholders to Tensors.</span></span><br><span class="line">  PlaceholderMap map_;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/// Maps Placeholder names to Placeholders.</span></span><br><span class="line">  PlaceholderNameMap nameMap_;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/// Trace Events recorded during this run.</span></span><br><span class="line">  <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;TraceEvent&gt; traceEvents_;</span><br></pre></td></tr></table></figure>
+<p>Context::insert()的使用实例如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ExecutorTest.cpp</span></span><br><span class="line"><span class="keyword">auto</span> refCtx = llvm::make_unique&lt;Context&gt;();</span><br><span class="line"><span class="keyword">auto</span> *tensor = testCtx-&gt;allocate(placeholder.get());</span><br><span class="line">tensor-&gt;init(Tensor::InitKind::Xavier, <span class="number">1.0</span>, rng);</span><br><span class="line">refCtx-&gt;insert(placeholder.get(), tensor-&gt;clone());</span><br></pre></td></tr></table></figure></p>
+<h3 id="Backends"><a href="#Backends" class="headerlink" title="Backends"></a>Backends</h3><p><strong><code>class Backend</code></strong><br>接口类，重要函数如下<br>compile():<br>virtual std::unique_ptr<compiledfunction> compile(Function *F) = 0;</compiledfunction></p>
+<p><strong><code>class BackendUsingGlowIR : public Backend</code></strong><br>compileIR(): 增加了从IRFunction编译到CompiledFunction的接口compileIR()（在LLVMBackend中实现）<br><code>virtual std::unique_ptr&lt;CompiledFunction&gt; compileIR(std::unique_ptr&lt;IRFunction&gt; IR) = 0;</code></p>
+<p><strong><code>class LLVMBackend : public BackendUsingGlowIR</code></strong><br>compile()的实现。<br>compileIR()的实现。</p>
+<p>createIRGen(): 构造LLVM IR Generator的接口。（具体的后端应该做平台相关的实现）<br><code>virtual std::unique_ptr&lt;LLVMIRGen&gt; createIRGen(const IRFunction *IR, AllocationsInfo &amp;allocationsInfo) const = 0;</code></p>
+<p>createCompliedFunction(): 构造CompiledFunction的接口（在CPUBackend中实现）<br><code>virtual std::unique_ptr&lt;CompiledFunction&gt; createCompiledFunction(std::unique_ptr&lt;llvm::orc::GlowJIT&gt; JIT, const runtime::RuntimeBundle &amp;runtimeBundle) const = 0;</code></p>
+<p><strong><code>class CPUBackend : public LLVMBackend</code></strong><br>createIRGen()的实现。<br>提供了对LLVMBackend中接口的实现。<br>compile(Function <em>)<br>  generateAndOptimizeIR(Function </em>)<br>  compileIR(IRFunction *)<br>    createIRGen()<br>    glow::generateRuntimeBundle()<br>    createCompiledFunction()</p>
+<hr>
+<p><strong><code>class CompiledFunction</code></strong><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// execute()是最为重要的接口，CompiledFunction中没有编译后的底层IR，需要其继承类来实现。</span></span><br><span class="line"><span class="comment">// RuntimeBundle中保存了SymbolTable和内存大小信息(constant,</span></span><br><span class="line"><span class="comment">// placeholder, activation, 独立的Allocator分配，故偏移量独立)；</span></span><br><span class="line"><span class="comment">// 如果collectConstants，还有分配用来聚合的constants空间。</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CompiledFunction</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">  <span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">(Context *ctx)</span> </span>= <span class="number">0</span>;</span><br><span class="line">  ...</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">  runtime::RuntimeBundle runtimeBundle_;</span><br><span class="line">  ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="存储管理"><a href="#存储管理" class="headerlink" title="存储管理"></a>存储管理</h3><h4 id="CPUBackend"><a href="#CPUBackend" class="headerlink" title="CPUBackend"></a>CPUBackend</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> LLVMCompiledFunction::execute(Context *ctx) &#123;</span><br><span class="line">  <span class="keyword">uint8_t</span> *baseActivationsAddress&#123;<span class="literal">nullptr</span>&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/// Base address for Mutable weights memory block, Inputs and Outputs.</span></span><br><span class="line">  <span class="keyword">uint8_t</span> *baseMutableWeightVarsAddress&#123;<span class="literal">nullptr</span>&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (runtimeBundle_.getActivationsSize() != <span class="number">0</span>) &#123;</span><br><span class="line">    baseActivationsAddress = (<span class="keyword">uint8_t</span> *)alignedAlloc(</span><br><span class="line">        runtimeBundle_.getActivationsSize(), TensorAlignment);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (runtimeBundle_.getMutableWeightSize() != <span class="number">0</span>) &#123;</span><br><span class="line">    baseMutableWeightVarsAddress = (<span class="keyword">uint8_t</span> *)alignedAlloc(</span><br><span class="line">        runtimeBundle_.getMutableWeightSize(), TensorAlignment);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  loadPlaceholders(ctx, baseMutableWeightVarsAddress);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">auto</span> sym = JIT_-&gt;findSymbol(<span class="string">"jitmain"</span>);</span><br><span class="line">  assert(sym &amp;&amp; <span class="string">"Unable to JIT the code!"</span>);</span><br><span class="line">  <span class="keyword">using</span> JitFuncType =</span><br><span class="line">      <span class="keyword">void</span> (*)(<span class="keyword">uint8_t</span> * constantWeightVars, <span class="keyword">uint8_t</span> * mutableWeightVars,</span><br><span class="line">               <span class="keyword">uint8_t</span> * activations);</span><br><span class="line">  <span class="keyword">auto</span> address = sym.getAddress();</span><br><span class="line">  <span class="keyword">if</span> (address) &#123;</span><br><span class="line">    JitFuncType funcPtr = <span class="keyword">reinterpret_cast</span>&lt;JitFuncType&gt;(address.get());</span><br><span class="line">    funcPtr(runtimeBundle_.getConstants(), baseMutableWeightVarsAddress,</span><br><span class="line">            baseActivationsAddress);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    GLOW_UNREACHABLE(<span class="string">"Error getting address"</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  updatePlaceholders(ctx, baseMutableWeightVarsAddress);</span><br><span class="line"></span><br><span class="line">  alignedFree(baseMutableWeightVarsAddress);</span><br><span class="line">  alignedFree(baseActivationsAddress);</span><br><span class="line"></span><br><span class="line">  translateTraceEvents(ctx);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Glow中间activations-Tensor维度推导"><a href="#Glow中间activations-Tensor维度推导" class="headerlink" title="Glow中间activations Tensor维度推导"></a>Glow中间activations Tensor维度推导</h3><p>我们以Convolution为例，在<code>ConvolutionNode *Function::createConv(...)</code>函数中，计算输出维度并作为ConvolutionNode的构造函数参数。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> outSz = calculateConvPoolOutputDims(idim.h, idim.w, kernels, strides, pads);</span><br><span class="line">...</span><br><span class="line"><span class="keyword">auto</span> OT = getParent()-&gt;uniqueType(ElemKind::FloatTy, outDims);</span><br><span class="line"><span class="keyword">return</span> addNode(<span class="keyword">new</span> ConvolutionNode(name, OT, input, filter, bias, kernels,</span><br><span class="line">                                     strides, pads, group));</span><br></pre></td></tr></table></figure></p>
+<p>其中uniqueType的返回类型是TypeRef.<code>using TypeRef = const Type *;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TypeRef Module::uniqueType(ElemKind elemTy, llvm::ArrayRef&lt;size_t&gt; dims);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+            <a href="/tags/轮子/" rel="tag"># 轮子</a>
+          
+            <a href="/tags/Glow/" rel="tag"># Glow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/03/cpp-template/" rel="next" title="C++ 模板使用">
+                <i class="fa fa-chevron-left"></i> C++ 模板使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/06/posts-on-cplusplus/" rel="prev" title="Posts-on-cplusplus">
+                Posts-on-cplusplus <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/favicon-wayne.ico" alt="Wayne">
+            
+              <p class="site-author-name" itemprop="name">Wayne</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#日志"><span class="nav-number">1.</span> <span class="nav-text">日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-in-Glow"><span class="nav-number">2.</span> <span class="nav-text">C++ in Glow</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#虚函数"><span class="nav-number">2.1.</span> <span class="nav-text">虚函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#std-unique-ptr-std-move等"><span class="nav-number">2.2.</span> <span class="nav-text">std::unique_ptr, std::move等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lambda-function"><span class="nav-number">2.3.</span> <span class="nav-text">lambda function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Glow-工程架构"><span class="nav-number">3.</span> <span class="nav-text">Glow 工程架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ExecutionEngine编译流程"><span class="nav-number">3.1.</span> <span class="nav-text">ExecutionEngine编译流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PostOrderVisitor"><span class="nav-number">3.2.</span> <span class="nav-text">PostOrderVisitor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DeviceManager设计"><span class="nav-number">3.3.</span> <span class="nav-text">DeviceManager设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Variable拆分为Constants和Placeholder"><span class="nav-number">3.4.</span> <span class="nav-text">Variable拆分为Constants和Placeholder</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Context"><span class="nav-number">3.5.</span> <span class="nav-text">Context</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Backends"><span class="nav-number">3.6.</span> <span class="nav-text">Backends</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#存储管理"><span class="nav-number">3.7.</span> <span class="nav-text">存储管理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CPUBackend"><span class="nav-number">3.7.1.</span> <span class="nav-text">CPUBackend</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Glow中间activations-Tensor维度推导"><span class="nav-number">3.8.</span> <span class="nav-text">Glow中间activations Tensor维度推导</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wayne</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.0.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/schemes/muse.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=7.0.1"></script>
+
+
+  
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -96,24 +96,24 @@
 
 
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="关于导入模型时命名的问题对于lenet mnist的例子，网络比较小，简单地以每个op的output作为node的name，以及name+”_out”作为其输出Tensor没有出问题。然而，对于比价复杂的Resnet50网络，则带来了如下的问题。12345678910111213141516171819202122232425262728293031323334353637383940414243">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/02/27/hello-world/index.html">
+<meta property="og:title" content="SWCompiler开发笔记">
+<meta property="og:url" content="http://yoursite.com/2019/04/01/swcompiler-dev-notes/index.html">
 <meta property="og:site_name" content="Wayne&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="关于导入模型时命名的问题对于lenet mnist的例子，网络比较小，简单地以每个op的output作为node的name，以及name+”_out”作为其输出Tensor没有出问题。然而，对于比价复杂的Resnet50网络，则带来了如下的问题。12345678910111213141516171819202122232425262728293031323334353637383940414243">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-19T06:32:13.023Z">
+<meta property="og:updated_time" content="2019-04-21T06:20:24.261Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="SWCompiler开发笔记">
+<meta name="twitter:description" content="关于导入模型时命名的问题对于lenet mnist的例子，网络比较小，简单地以每个op的output作为node的name，以及name+”_out”作为其输出Tensor没有出问题。然而，对于比价复杂的Resnet50网络，则带来了如下的问题。12345678910111213141516171819202122232425262728293031323334353637383940414243">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/27/hello-world/">
+  <link rel="canonical" href="http://yoursite.com/2019/04/01/swcompiler-dev-notes/">
 
 
 
@@ -123,7 +123,7 @@
   };
 </script>
 
-  <title>Hello World | Wayne's Blog</title>
+  <title>SWCompiler开发笔记 | Wayne's Blog</title>
   
 
 
@@ -351,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/01/swcompiler-dev-notes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wayne">
@@ -368,7 +368,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World
+          <h1 class="post-title" itemprop="name headline">SWCompiler开发笔记
 
               
             
@@ -394,7 +394,7 @@
                 
               
 
-              <time title="Created: 2019-02-27 15:45:19" itemprop="dateCreated datePublished" datetime="2019-02-27T15:45:19+08:00">2019-02-27</time>
+              <time title="Created: 2019-04-01 12:25:13" itemprop="dateCreated datePublished" datetime="2019-04-01T12:25:13+08:00">2019-04-01</time>
             
 
             
@@ -411,7 +411,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-05-19 14:32:13" itemprop="dateModified" datetime="2019-05-19T14:32:13+08:00">2019-05-19</time>
+                <time title="Modified: 2019-04-21 14:20:24" itemprop="dateModified" datetime="2019-04-21T14:20:24+08:00">2019-04-21</time>
               
             
           </span>
@@ -445,15 +445,18 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h1 id="关于导入模型时命名的问题"><a href="#关于导入模型时命名的问题" class="headerlink" title="关于导入模型时命名的问题"></a>关于导入模型时命名的问题</h1><p>对于lenet mnist的例子，网络比较小，简单地以每个op的output作为node的name，以及name+”_out”作为其输出Tensor没有出问题。<br>然而，对于比价复杂的Resnet50网络，则带来了如下的问题。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">op &#123;</span><br><span class="line">  input: <span class="string">"gpu_0/res3_2_branch2c"</span></span><br><span class="line">  input: <span class="string">"gpu_0/res3_2_branch2c_bn_s"</span></span><br><span class="line">  input: <span class="string">"gpu_0/res3_2_branch2c_bn_b"</span></span><br><span class="line">  input: <span class="string">"gpu_0/res3_2_branch2c_bn_rm"</span></span><br><span class="line">  input: <span class="string">"gpu_0/res3_2_branch2c_bn_riv"</span></span><br><span class="line">  output: <span class="string">"gpu_0/res3_2_branch2c_bn"</span></span><br><span class="line">  name: <span class="string">""</span></span><br><span class="line">  type: <span class="string">"SpatialBN"</span></span><br><span class="line">  arg &#123;</span><br><span class="line">    name: <span class="string">"epsilon"</span></span><br><span class="line">    f: <span class="number">1.00000006569e-05</span></span><br><span class="line">  &#125;</span><br><span class="line">  arg &#123;</span><br><span class="line">    name: <span class="string">"is_test"</span></span><br><span class="line">    i: <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">  arg &#123;</span><br><span class="line">    name: <span class="string">"order"</span></span><br><span class="line">    s: <span class="string">"NCHW"</span></span><br><span class="line">  &#125;</span><br><span class="line">  device_option &#123;</span><br><span class="line">  &#125;</span><br><span class="line">  engine: <span class="string">""</span></span><br><span class="line">&#125;</span><br><span class="line">op &#123;</span><br><span class="line">  input: <span class="string">"gpu_0/res3_2_branch2c_bn"</span></span><br><span class="line">  input: <span class="string">"gpu_0/res3_1_branch2c_bn"</span></span><br><span class="line">  output: <span class="string">"gpu_0/res3_2_branch2c_bn"</span></span><br><span class="line">  name: <span class="string">""</span></span><br><span class="line">  type: <span class="string">"Sum"</span></span><br><span class="line">  device_option &#123;</span><br><span class="line">  &#125;</span><br><span class="line">  engine: <span class="string">""</span></span><br><span class="line">&#125;</span><br><span class="line">op &#123;</span><br><span class="line">  input: <span class="string">"gpu_0/res3_2_branch2c_bn"</span></span><br><span class="line">  output: <span class="string">"gpu_0/res3_2_branch2c_bn"</span></span><br><span class="line">  name: <span class="string">""</span></span><br><span class="line">  type: <span class="string">"Relu"</span></span><br><span class="line">  device_option &#123;</span><br><span class="line">  &#125;</span><br><span class="line">  engine: <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>以Sum节点为例，其输出是输入之一。input(0)和output(0)对应的不同的TensorNode（且名字也应该不同，因为dotGen时要用到）;但这俩个TensorNode最好指向同一个Tensor（否则还要做优化，比如这里Sum操作的原义是将B加到A上，而最好不要C=A+B）。</li>
+<li>以Relu节点为例，其输入<code>gpu_0/res3_2_branch2c_bn</code>是Sum的输出，也是BN的输出。但是其在拓扑上应该与Relu节点连接。</li>
+<li>为了避免极可能的数组访问越界，摒弃直接index访问元素，转而封装成函数，内部可以报错或者是创建不存在的节点。</li>
+</ol>
+<h3 id="去除tempalte时一系列duplicate-symbol错误"><a href="#去除tempalte时一系列duplicate-symbol错误" class="headerlink" title="去除tempalte时一系列duplicate symbol错误"></a>去除tempalte时一系列duplicate symbol错误</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">[100%] Linking CXX executable testMLP</span><br><span class="line">duplicate symbol __ZNK3swc10TensorNode8toStringEv in:</span><br><span class="line">    CMakeFiles/testMLP.dir/test/testMLP.cpp.o</span><br><span class="line">    libgraphcore.a(IRGraph.cpp.o)</span><br><span class="line">duplicate symbol __ZNK3swc6OpNode8toStringEv in:</span><br><span class="line">    CMakeFiles/testMLP.dir/test/testMLP.cpp.o</span><br><span class="line">    libgraphcore.a(IRGraph.cpp.o)</span><br><span class="line">duplicate symbol __ZNK3swc10TensorNode5cloneEv in:</span><br><span class="line">    CMakeFiles/testMLP.dir/test/testMLP.cpp.o</span><br><span class="line">    libgraphcore.a(IRGraph.cpp.o)</span><br><span class="line">duplicate symbol __ZNK3swc6OpNode5cloneEv in:</span><br><span class="line">    CMakeFiles/testMLP.dir/test/testMLP.cpp.o</span><br><span class="line">    libgraphcore.a(IRGraph.cpp.o)</span><br><span class="line">duplicate symbol __ZTVN3swc10TensorNodeE in:</span><br><span class="line">    CMakeFiles/testMLP.dir/test/testMLP.cpp.o</span><br><span class="line">    libgraphcore.a(IRGraph.cpp.o)</span><br><span class="line">duplicate symbol __ZTSN3swc10TensorNodeE in:</span><br><span class="line">    CMakeFiles/testMLP.dir/test/testMLP.cpp.o</span><br><span class="line">    libgraphcore.a(IRGraph.cpp.o)</span><br></pre></td></tr></table></figure>
+<p>开始莫名其妙，细看后意识到时特定的函数，它们定义在类之外。即<br><code>std::string TensorNode::toStringEv() const {}</code></p>
+<ol>
+<li>在使用模板类时，这些成员函数定义在.h文件是没有问题的，因为在.cpp中才是真正的实例化。</li>
+<li>去掉模板后，这些定义在类结构外的成员函数，在头文件被多个其他文件包含时，函数定义也会include进去，从而造成duplica问题。<br><strong>解决办法：</strong>要么将所有成员函数定义在类结构体中，要么定义在.cpp中。</li>
+</ol>
 
       
     </div>
@@ -484,14 +487,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/03/25/cmake-tutorial/" rel="next" title="CMake Tutorial">
+                <i class="fa fa-chevron-left"></i> CMake Tutorial
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/27/reloading/" rel="prev" title="Reloading">
-                Reloading <i class="fa fa-chevron-right"></i>
+              <a href="/2019/04/19/doxygen-notes/" rel="prev" title="Doxygen Getting Started">
+                Doxygen Getting Started <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -638,7 +645,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于导入模型时命名的问题"><span class="nav-number">1.</span> <span class="nav-text">关于导入模型时命名的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#去除tempalte时一系列duplicate-symbol错误"><span class="nav-number">1.0.1.</span> <span class="nav-text">去除tempalte时一系列duplicate symbol错误</span></a></li></ol></li></ol></div>
             
 
           </div>

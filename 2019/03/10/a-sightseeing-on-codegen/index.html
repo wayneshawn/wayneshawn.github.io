@@ -96,24 +96,24 @@
 
 
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="TVM TVM的CodeGen仅仅是生成对应的funcion。内存分配则由DeviceAPI负责。以CodeGenCUDA为例，CUDADeviceAPI内部封装了如下功能。   各种DeviceAttr的查询，实现则是直接调用了cudaDeviceGetAttribute()函数。 GPU存储的分配和释放。 数据拷贝。分为GPU到GPU(是否同一device)，CPU到GPU，GPU到CPU等几">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2019/02/27/hello-world/index.html">
+<meta property="og:title" content="关于CodeGen的一些笔记">
+<meta property="og:url" content="http://yoursite.com/2019/03/10/a-sightseeing-on-codegen/index.html">
 <meta property="og:site_name" content="Wayne&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="TVM TVM的CodeGen仅仅是生成对应的funcion。内存分配则由DeviceAPI负责。以CodeGenCUDA为例，CUDADeviceAPI内部封装了如下功能。   各种DeviceAttr的查询，实现则是直接调用了cudaDeviceGetAttribute()函数。 GPU存储的分配和释放。 数据拷贝。分为GPU到GPU(是否同一device)，CPU到GPU，GPU到CPU等几">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-19T06:32:13.023Z">
+<meta property="og:updated_time" content="2019-03-10T13:58:00.456Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="关于CodeGen的一些笔记">
+<meta name="twitter:description" content="TVM TVM的CodeGen仅仅是生成对应的funcion。内存分配则由DeviceAPI负责。以CodeGenCUDA为例，CUDADeviceAPI内部封装了如下功能。   各种DeviceAttr的查询，实现则是直接调用了cudaDeviceGetAttribute()函数。 GPU存储的分配和释放。 数据拷贝。分为GPU到GPU(是否同一device)，CPU到GPU，GPU到CPU等几">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/27/hello-world/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/10/a-sightseeing-on-codegen/">
 
 
 
@@ -123,7 +123,7 @@
   };
 </script>
 
-  <title>Hello World | Wayne's Blog</title>
+  <title>关于CodeGen的一些笔记 | Wayne's Blog</title>
   
 
 
@@ -351,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/a-sightseeing-on-codegen/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wayne">
@@ -368,7 +368,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World
+          <h1 class="post-title" itemprop="name headline">关于CodeGen的一些笔记
 
               
             
@@ -394,24 +394,12 @@
                 
               
 
-              <time title="Created: 2019-02-27 15:45:19" itemprop="dateCreated datePublished" datetime="2019-02-27T15:45:19+08:00">2019-02-27</time>
+              <time title="Created: 2019-03-10 21:36:28 / Modified: 21:58:00" itemprop="dateCreated datePublished" datetime="2019-03-10T21:36:28+08:00">2019-03-10</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-05-19 14:32:13" itemprop="dateModified" datetime="2019-05-19T14:32:13+08:00">2019-05-19</time>
               
             
           </span>
@@ -445,15 +433,15 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h1 id="TVM"><a href="#TVM" class="headerlink" title="TVM"></a>TVM</h1><ol>
+<li>TVM的CodeGen仅仅是生成对应的funcion。内存分配则由DeviceAPI负责。以CodeGenCUDA为例，CUDADeviceAPI内部封装了如下功能。</li>
+</ol>
+<ul>
+<li>各种DeviceAttr的查询，实现则是直接调用了cudaDeviceGetAttribute()函数。</li>
+<li>GPU存储的分配和释放。</li>
+<li>数据拷贝。分为GPU到GPU(是否同一device)，CPU到GPU，GPU到CPU等几种类型。TVMContext给出设备信息。<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">  <span class="comment">/*! \brief The device type used in the device. */</span></span><br><span class="line">  DLDeviceType device_type;</span><br><span class="line">  <span class="comment">/*! \brief The device index */</span></span><br><span class="line">  <span class="keyword">int</span> device_id;</span><br><span class="line">&#125; DLContext;</span><br><span class="line">ypedef DLContext TVMContext;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
       
     </div>
@@ -484,14 +472,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/03/06/posts-on-cplusplus/" rel="next" title="Posts-on-cplusplus">
+                <i class="fa fa-chevron-left"></i> Posts-on-cplusplus
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/27/reloading/" rel="prev" title="Reloading">
-                Reloading <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/25/cmake-tutorial/" rel="prev" title="CMake Tutorial">
+                CMake Tutorial <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -638,7 +630,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#TVM"><span class="nav-number">1.</span> <span class="nav-text">TVM</span></a></li></ol></div>
             
 
           </div>

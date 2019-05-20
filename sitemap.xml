@@ -2,16 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2019/02/27/Reloading/</loc>
+    <loc>http://yoursite.com/2019/03/04/glow-code-review/</loc>
     
-    <lastmod>2019-03-01T09:04:27.349Z</lastmod>
+    <lastmod>2019-05-20T04:38:01.282Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/02/27/reloading/</loc>
+    
+    <lastmod>2019-05-19T06:43:13.830Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/02/27/hello-world/</loc>
+    
+    <lastmod>2019-05-19T06:32:13.023Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/03/25/cmake-tutorial/</loc>
+    
+    <lastmod>2019-05-18T14:54:07.813Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/04/23/cuda-c-programming-notes/</loc>
+    
+    <lastmod>2019-04-23T13:27:45.114Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/04/23/parallel-computing/</loc>
+    
+    <lastmod>2019-04-23T13:27:41.787Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/04/01/swcompiler-dev-notes/</loc>
+    
+    <lastmod>2019-04-21T06:20:24.261Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/04/19/doxygen-notes/</loc>
+    
+    <lastmod>2019-04-21T06:18:52.208Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/2019/03/01/zsh-install/</loc>
     
-    <lastmod>2019-03-01T09:03:20.345Z</lastmod>
+    <lastmod>2019-04-03T07:51:26.378Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/03/06/posts-on-cplusplus/</loc>
+    
+    <lastmod>2019-04-01T04:24:42.845Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/03/10/a-sightseeing-on-codegen/</loc>
+    
+    <lastmod>2019-03-10T13:58:00.456Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/03/03/cpp-template/</loc>
+    
+    <lastmod>2019-03-03T06:28:44.827Z</lastmod>
     
   </url>
   
@@ -26,13 +96,6 @@
     <loc>http://yoursite.com/tags/index.html</loc>
     
     <lastmod>2019-02-27T09:09:44.063Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2019/02/27/hello-world/</loc>
-    
-    <lastmod>2019-02-27T07:45:19.038Z</lastmod>
     
   </url>
   

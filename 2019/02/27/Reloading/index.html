@@ -100,21 +100,23 @@
 <meta name="keywords" content="general">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Reloading">
-<meta property="og:url" content="http://yoursite.com/2019/02/27/Reloading/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/02/27/reloading/index.html">
 <meta property="og:site_name" content="Wayne&#39;s Blog">
 <meta property="og:description" content="Reloading由于之前的（2015，真的是很久很久之前，之后便断掉了）post在旧电脑上直接保存，这次更新直接把原来的内容给覆盖了。 继续使用next主题，但是配置还要从头再来。做好记录，切实可以回看的记录，果然还是非常重要的。 Hexo使用使用资源文件在hexo的sources中建立相应的文件夹，如images/, files/等，在链接时使用[]()就可以了,图片则为![]()如，chan">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-01T09:04:27.349Z">
+<meta property="og:image" content="http://yoursite.com/2019/02/27/images/markdown-image-paste-invalid.png">
+<meta property="og:updated_time" content="2019-05-19T06:43:13.830Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Reloading">
 <meta name="twitter:description" content="Reloading由于之前的（2015，真的是很久很久之前，之后便断掉了）post在旧电脑上直接保存，这次更新直接把原来的内容给覆盖了。 继续使用next主题，但是配置还要从头再来。做好记录，切实可以回看的记录，果然还是非常重要的。 Hexo使用使用资源文件在hexo的sources中建立相应的文件夹，如images/, files/等，在链接时使用[]()就可以了,图片则为![]()如，chan">
+<meta name="twitter:image" content="http://yoursite.com/2019/02/27/images/markdown-image-paste-invalid.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/27/Reloading/">
+  <link rel="canonical" href="http://yoursite.com/2019/02/27/reloading/">
 
 
 
@@ -352,7 +354,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/Reloading/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/reloading/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wayne">
@@ -412,7 +414,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-03-01 17:04:27" itemprop="dateModified" datetime="2019-03-01T17:04:27+08:00">2019-03-01</time>
+                <time title="Modified: 2019-05-19 14:43:13" itemprop="dateModified" datetime="2019-05-19T14:43:13+08:00">2019-05-19</time>
               
             
           </span>
@@ -449,6 +451,10 @@
         <h1 id="Reloading"><a href="#Reloading" class="headerlink" title="Reloading"></a>Reloading</h1><p>由于之前的（2015，真的是很久很久之前，之后便断掉了）post在旧电脑上直接保存，这次更新直接把原来的内容给覆盖了。</p>
 <p>继续使用next主题，但是配置还要从头再来。做好记录，切实可以回看的记录，果然还是非常重要的。</p>
 <h1 id="Hexo使用"><a href="#Hexo使用" class="headerlink" title="Hexo使用"></a>Hexo使用</h1><h3 id="使用资源文件"><a href="#使用资源文件" class="headerlink" title="使用资源文件"></a>使用资源文件</h3><p>在hexo的sources中建立相应的文件夹，如images/, files/等，在链接时使用<code>[]()</code>就可以了,图片则为<code>![]()</code><br>如，<br><a href="/files/channel_v3.json">channel_v3.json</a><br><a href="/files/1901.00596.wu.pdf">zhonghan wu等人关于图计算的综述论文一篇</a><br><a href="https://daringfireball.net/projects/markdown/syntax" target="_blank" rel="noopener">Markdown在线教程(英文)</a></p>
+<h1 id="Markdown使用"><a href="#Markdown使用" class="headerlink" title="Markdown使用"></a>Markdown使用</h1><h3 id="markdown-image-paste"><a href="#markdown-image-paste" class="headerlink" title="markdown-image-paste"></a>markdown-image-paste</h3><p><code>ctrl+V</code>粘贴无效的问题。</p>
+<p>问题来自插件中的代码错误。<br>OSX系统下，<code>View &gt; Developer &gt; Toggle Developer Tools</code>打开console，执行时可以看到如下错误：</p>
+<p><img src="../images/markdown-image-paste-invalid.png" alt="markdown-image-paste-invalid"><br>打开<code>$HOME/.atom/packages/markdown-image-paste/lib/markdown-img-paste.coffee</code>,将其中的<code>toPng()</code>改为<code>toPNG()</code>即可。</p>
+<p><a href="https://github.com/nmecad/markdown-img-paste/issues/14#issuecomment-434913131" target="_blank" rel="noopener">github issue 链接</a></p>
 
       
     </div>
@@ -568,7 +574,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -585,7 +591,29 @@
                     
                       
                     
-                    <span class="site-state-item-count">1</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -621,7 +649,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Reloading"><span class="nav-number">1.</span> <span class="nav-text">Reloading</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo使用"><span class="nav-number">2.</span> <span class="nav-text">Hexo使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用资源文件"><span class="nav-number">2.0.1.</span> <span class="nav-text">使用资源文件</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Reloading"><span class="nav-number">1.</span> <span class="nav-text">Reloading</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hexo使用"><span class="nav-number">2.</span> <span class="nav-text">Hexo使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用资源文件"><span class="nav-number">2.0.1.</span> <span class="nav-text">使用资源文件</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#Markdown使用"><span class="nav-number">3.</span> <span class="nav-text">Markdown使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#markdown-image-paste"><span class="nav-number">3.0.1.</span> <span class="nav-text">markdown-image-paste</span></a></li></ol></li></div>
             
 
           </div>
