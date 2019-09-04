@@ -2,86 +2,149 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2019/03/04/glow-code-review/</loc>
+    <loc>http://yoursite.com/2019/09/04/linuxbrew-install/</loc>
     
-    <lastmod>2019-05-20T04:38:01.282Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2019/02/27/reloading/</loc>
-    
-    <lastmod>2019-05-19T06:43:13.830Z</lastmod>
+    <lastmod>2019-09-04T15:11:01.796Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2019/02/27/hello-world/</loc>
+    <loc>http://yoursite.com/2019/08/29/about-install-os/</loc>
     
-    <lastmod>2019-05-19T06:32:13.023Z</lastmod>
+    <lastmod>2019-09-04T15:11:01.796Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2019/03/25/cmake-tutorial/</loc>
+    <loc>http://yoursite.com/2019/08/29/abc-as-non-root/</loc>
     
-    <lastmod>2019-05-18T14:54:07.813Z</lastmod>
+    <lastmod>2019-09-04T15:11:01.796Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/09/04/youcompleteme-install/</loc>
+    
+    <lastmod>2019-09-04T15:11:01.795Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/06/24/Conference-Workshop-Following-List/</loc>
+    
+    <lastmod>2019-07-17T03:59:25.942Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/06/27/ctypes-tutorial/</loc>
+    
+    <lastmod>2019-06-27T04:44:12.074Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/06/27/python-tutorial/</loc>
+    
+    <lastmod>2019-06-27T04:35:14.516Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/06/24/paper-list/</loc>
+    
+    <lastmod>2019-06-24T02:37:41.366Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/06/23/arg-parse-tutorial/</loc>
+    
+    <lastmod>2019-06-23T13:52:37.374Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/2019/04/23/cuda-c-programming-notes/</loc>
     
-    <lastmod>2019-04-23T13:27:45.114Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2019/04/23/parallel-computing/</loc>
-    
-    <lastmod>2019-04-23T13:27:41.787Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2019/04/01/swcompiler-dev-notes/</loc>
-    
-    <lastmod>2019-04-21T06:20:24.261Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2019/04/19/doxygen-notes/</loc>
-    
-    <lastmod>2019-04-21T06:18:52.208Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/2019/03/01/zsh-install/</loc>
-    
-    <lastmod>2019-04-03T07:51:26.378Z</lastmod>
+    <lastmod>2019-06-18T13:54:03.154Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/2019/03/06/posts-on-cplusplus/</loc>
     
-    <lastmod>2019-04-01T04:24:42.845Z</lastmod>
+    <lastmod>2019-05-29T04:31:28.244Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2019/03/10/a-sightseeing-on-codegen/</loc>
+    <loc>http://yoursite.com/2019/03/25/cmake-tutorial/</loc>
     
-    <lastmod>2019-03-10T13:58:00.456Z</lastmod>
+    <lastmod>2019-05-23T14:14:38.353Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/03/04/glow-code-review/</loc>
+    
+    <lastmod>2019-05-20T08:32:04.160Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/04/01/swcompiler-dev-notes/</loc>
+    
+    <lastmod>2019-05-20T07:52:10.416Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/04/23/parallel-computing/</loc>
+    
+    <lastmod>2019-05-20T07:46:30.678Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/03/01/zsh-install/</loc>
+    
+    <lastmod>2019-05-20T07:43:05.786Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://yoursite.com/2019/03/03/cpp-template/</loc>
     
-    <lastmod>2019-03-03T06:28:44.827Z</lastmod>
+    <lastmod>2019-05-20T07:41:43.445Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/03/10/a-sightseeing-on-codegen/</loc>
+    
+    <lastmod>2019-05-20T07:39:51.214Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/02/27/hello-world/</loc>
+    
+    <lastmod>2019-05-20T07:38:53.906Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/02/27/reloading/</loc>
+    
+    <lastmod>2019-05-20T07:38:17.267Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2019/04/19/doxygen-notes/</loc>
+    
+    <lastmod>2019-05-20T07:36:35.691Z</lastmod>
     
   </url>
   
